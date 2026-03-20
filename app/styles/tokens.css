@@ -1,0 +1,340 @@
+/* ═══════════════════════════════════════════════════════════════
+   Atomity — Design Tokens
+   All color, typography, and spacing values live here.
+   Components reference var(--token) — never raw hex.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Light Mode (default) ──────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-bg:            #F0F5FF;
+  --color-bg-card:       #FFFFFF;
+
+  /* Borders */
+  --color-border:        rgba(59, 130, 246, 0.18);
+  --color-border-strong: rgba(59, 130, 246, 0.40);
+
+  /* Accent base — color-mix() derives soft/glow variants */
+  --color-accent:        #2563EB;
+  --color-accent-soft:   color-mix(in srgb, #2563EB 8%,  transparent);
+  --color-accent-glow:   color-mix(in srgb, #2563EB 15%, transparent);
+
+  /* Text */
+  --color-text:          #0A1628;
+  --color-text-mid:      #3D567A;
+  --color-text-soft:     #8BA4C8;
+
+  /* Providers */
+  --color-aws:           #D97706;
+  --color-azure:         #2563EB;
+  --color-gcp:           #059669;
+  --color-onprem:        #7C3AED;
+  --color-green:         #059669;
+
+  /* Provider soft variants via color-mix() */
+  --color-aws-soft:      color-mix(in srgb, #D97706 12%, transparent);
+  --color-azure-soft:    color-mix(in srgb, #2563EB 12%, transparent);
+  --color-gcp-soft:      color-mix(in srgb, #059669 12%, transparent);
+  --color-onprem-soft:   color-mix(in srgb, #7C3AED 12%, transparent);
+
+  /* Typography */
+  --font-mono:           'Georgia', serif;
+  --font-sans:           'Helvetica Neue', Arial, sans-serif;
+
+  /* Spacing scale */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+
+  /* Radius */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+
+  /* Fluid sizing with clamp() */
+  --orb-size:     clamp(86px,  12vw, 140px);
+  --logo-size:    clamp(28px,  4vw,  50px);
+  --font-size-xs: clamp(8px,   1vw,  10px);
+  --font-size-sm: clamp(10px,  1.2vw, 12px);
+  --font-size-md: clamp(12px,  1.5vw, 15px);
+  --font-size-lg: clamp(14px,  1.8vw, 17px);
+  --card-padding: clamp(13px,  2.5vw, 28px);
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────────── */
+:root[data-theme="dark"] {
+  --color-bg:            #080D1A;
+  --color-bg-card:       #0D1526;
+  --color-border:        rgba(59, 130, 246, 0.18);
+  --color-border-strong: rgba(59, 130, 246, 0.40);
+  --color-accent:        #3B82F6;
+  --color-accent-soft:   color-mix(in srgb, #3B82F6 12%, transparent);
+  --color-accent-glow:   color-mix(in srgb, #3B82F6 25%, transparent);
+  --color-text:          #E8F0FE;
+  --color-text-mid:      #8BA4C8;
+  --color-text-soft:     #3D567A;
+  --color-aws:           #F59E0B;
+  --color-azure:         #60A5FA;
+  --color-gcp:           #34D399;
+  --color-onprem:        #A78BFA;
+  --color-green:         #34D399;
+  --color-aws-soft:      color-mix(in srgb, #F59E0B 12%, transparent);
+  --color-azure-soft:    color-mix(in srgb, #60A5FA 12%, transparent);
+  --color-gcp-soft:      color-mix(in srgb, #34D399 12%, transparent);
+  --color-onprem-soft:   color-mix(in srgb, #A78BFA 12%, transparent);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Component styles — CSS Nesting (native, not Sass)
+══════════════════════════════════════════════════════════════════ */
+
+/* ── Loading skeleton ──────────────────────────────────────────── */
+.loading-skeleton {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  block-size:      100vh;
+  gap:             var(--space-4);
+  background:      var(--color-bg);
+
+  & .spinner {
+    inline-size:      48px;
+    block-size:       48px;
+    border-radius:    var(--radius-full);
+    border:           3px solid var(--color-accent);
+    border-top-color: transparent;
+    animation:        spin 0.8s linear infinite;
+  }
+
+  & p {
+    font-family:    var(--font-sans);
+    font-size:      var(--font-size-sm);
+    color:          var(--color-text-mid);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin:         0;
+  }
+}
+
+/* ── Error state ───────────────────────────────────────────────── */
+.error-state {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  block-size:      100vh;
+  gap:             var(--space-3);
+  background:      var(--color-bg);
+
+  & p {
+    font-family:    var(--font-sans);
+    font-size:      var(--font-size-sm);
+    color:          var(--color-text-mid);
+    letter-spacing: 0.06em;
+    margin:         0;
+  }
+
+  & .retry-btn {
+    padding:       var(--space-2) var(--space-5);
+    border-radius: var(--radius-sm);
+    border:        1.5px solid var(--color-accent);
+    background:    transparent;
+    color:         var(--color-accent);
+    cursor:        pointer;
+    font-family:   var(--font-sans);
+    font-size:     var(--font-size-xs);
+    font-weight:   700;
+    transition:    background 0.2s, color 0.2s;
+
+    &:hover {
+      background: var(--color-accent-soft);
+    }
+
+    &:focus-visible {
+      outline:        2px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+  }
+}
+
+/* ── Dark-mode toggle ──────────────────────────────────────────── */
+.dark-toggle {
+  position:          fixed;
+  inset-block-start: max(20px, calc(env(safe-area-inset-top) + 12px));
+  inset-inline-end:  max(20px, env(safe-area-inset-right));
+  z-index:           1000;
+
+  & button {
+    display:       flex;
+    align-items:   center;
+    gap:           var(--space-2);
+    background:    var(--color-bg-card);
+    border:        1.5px solid var(--color-border-strong);
+    border-radius: var(--radius-full);
+    padding:       var(--space-2) var(--space-4);
+    cursor:        pointer;
+    transition:    box-shadow 0.3s;
+
+    &:focus-visible {
+      outline:        2px solid var(--color-accent);
+      outline-offset: 3px;
+    }
+
+    & .toggle-label {
+      font-family:    var(--font-sans);
+      font-size:      11px;
+      font-weight:    700;
+      color:          var(--color-text-mid);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  }
+
+  @media (max-width: 899px) {
+    inset-block-start: max(12px, calc(env(safe-area-inset-top) + 8px));
+    inset-inline-end:  max(12px, env(safe-area-inset-right));
+
+    & button { padding: 6px 10px; }
+  }
+}
+
+/* ── Provider article cards ────────────────────────────────────── */
+.provider-card {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+
+  & h3 {
+    margin-block:   var(--space-2) 0;
+    font-family:    var(--font-sans);
+    font-size:      var(--font-size-xs);
+    font-weight:    700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align:     center;
+  }
+}
+
+/* ── Cost monitor card ─────────────────────────────────────────── */
+.cost-monitor {
+  border-radius:   var(--radius-xl);
+  border:          2px solid var(--color-border-strong);
+  padding:         var(--card-padding);
+  backdrop-filter: blur(14px);
+  transition:      background 0.4s, border-color 0.4s;
+
+  & .monitor-label {
+    font-family:      var(--font-sans);
+    font-size:        var(--font-size-xs);
+    color:            var(--color-text-soft);
+    letter-spacing:   0.11em;
+    text-transform:   uppercase;
+    margin-block-end: var(--space-4);
+  }
+
+  & .metrics-row {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    gap:             var(--space-2);
+    flex-wrap:       wrap;
+  }
+
+  & .divider {
+    block-size:   1px;
+    background:   var(--color-border);
+    margin-block: var(--space-4) 0;
+  }
+
+  & .waste-row {
+    display:           flex;
+    justify-content:   space-between;
+    align-items:       center;
+    margin-block-start: var(--space-3);
+
+    & .waste-label {
+      font-family:    var(--font-sans);
+      font-size:      var(--font-size-xs);
+      color:          var(--color-text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    & .waste-value {
+      font-family: var(--font-sans);
+      font-size:   var(--font-size-xs);
+      font-weight: 700;
+      color:       var(--color-accent);
+    }
+  }
+}
+
+/* ── Data panel strip ──────────────────────────────────────────── */
+.data-panel {
+  border-radius:   var(--radius-lg);
+  border:          1.5px solid var(--color-border-strong);
+  display:         flex;
+  align-items:     stretch;
+  overflow:        hidden;
+  backdrop-filter: blur(20px);
+  transition:      background 0.4s;
+
+  & .panel-cell {
+    flex:            1;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    gap:             var(--space-2);
+    padding-block:   var(--space-5);
+    padding-inline:  var(--space-1);
+
+    & .cell-label {
+      font-family:    var(--font-sans);
+      font-size:      var(--font-size-xs);
+      font-weight:    700;
+      color:          var(--color-text-soft);
+      letter-spacing: 0.08em;
+      text-align:     center;
+      text-transform: uppercase;
+      line-height:    1.5;
+    }
+
+    & .cell-value {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size:   var(--font-size-md);
+      white-space: nowrap;
+      color:       var(--color-text);
+    }
+
+    &.highlighted {
+      background: var(--color-accent-soft);
+
+      & .cell-label { color: var(--color-accent); }
+      & .cell-value { color: var(--color-accent); font-size: var(--font-size-lg); }
+    }
+  }
+}
+
+/* ── Reduced Motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+  }
+}
+
+/* ── Keyframes ─────────────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
